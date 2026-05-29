@@ -319,8 +319,10 @@ app.get("/api/public/stats", async (req, res) => {
 			.limit(10)
 			.lean();
 
-		const guild = await client.guilds.fetch(GUILD_ID, { withCounts: true });
-		const totalMembers = guild.approximateMemberCount;
+		// const guild = await client.guilds.fetch(GUILD_ID, { withCounts: true });
+		// const totalMembers = guild.approximateMemberCount;
+		const guild = client.guilds.cache.get(GUILD_ID);
+		const totalMembers = guild?.memberCount;
 
 		res.json({
 			stats: {
