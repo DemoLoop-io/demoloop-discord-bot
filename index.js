@@ -12,9 +12,16 @@ const {
 
 const mongoose = require("mongoose");
 const { MONGODB_URI } = require("./urls");
+const cors = require("cors");
 
 const express = require("express");
 const app = express();
+
+app.use(
+	cors({
+		origin: ["https://www.demoloop.io", "https://demoloop.io"],
+	}),
+);
 
 const {
 	DISCORD_TOKEN,
