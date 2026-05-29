@@ -319,12 +319,16 @@ app.get("/api/public/stats", async (req, res) => {
 			.limit(10)
 			.lean();
 
+		const guild = await client.guilds.fetch(GUILD_ID, { withCounts: true });
+		const totalMembers = guild.approximateMemberCount;
+
 		res.json({
 			stats: {
 				upcomingSessions: enrichedSessions.length,
 				totalPresentations: await Participation.countDocuments(),
 				totalAttendance: await Attendance.countDocuments(),
 				totalFeedback: await Feedback.countDocuments(),
+				totalMembers,
 			},
 			sessions: enrichedSessions,
 			leaderboard,
